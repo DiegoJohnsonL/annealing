@@ -15,9 +15,9 @@ def get_energy(route):
 
 
 def draw(route, data):
-    region_geojson = gpd.read_file(data)
+    plt.clf()
     c_map = ListedColormap(['white' for _ in range(25)], name='test')
-    region_geojson.plot(figsize=(20, 20), edgecolor='black', cmap=c_map)
+    data.plot(figsize=(20, 20), edgecolor='black', cmap=c_map)
     plt.xlabel('longitude')
     plt.ylabel('latitude')
     for i in range(len(route) - 1):
@@ -25,11 +25,14 @@ def draw(route, data):
         x_values = [route[i].longitude, route[i + 1].longitude]
         y_values = [route[i].latitude, route[i + 1].latitude]
         plt.plot(x_values, y_values)
-    plt.show()
+    plt.draw()
+    plt.pause(.000001)
 
 
 def simulated_annealing(route, iterations):
+    plt.ion()
     url_data = "https://raw.githubusercontent.com/juaneladio/peru-geojson/master/peru_departamental_simple.geojson"
+    region_geojson = gpd.read_file(url_data)
     temp = 1000
     cooling_index = 0.003
     random.shuffle(route)
@@ -52,7 +55,7 @@ def simulated_annealing(route, iterations):
         if e_actual < e_best:
             t_best = t_actual.copy()
         temp = (1 - cooling_index) * temp
-        draw(t_actual, url_data)
+        #draw(t_actual, region_geojson)
 
     print(str(get_energy(t_best)) + "km")
     return t_best
