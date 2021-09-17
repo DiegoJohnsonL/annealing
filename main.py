@@ -45,7 +45,7 @@ def save_html_map(route):
                 weight=2.5,
                 opacity=1
             ).add_to(peru_map)
-    peru_map.save(r"peru_map.html")
+    peru_map.save("peru_map.html")
 
 
 def draw_complete_map(route):
@@ -70,9 +70,10 @@ def draw_complete_map(route):
 
 if __name__ == '__main__':
     departments = get_departments_list()
-    best_route = simulated_annealing(departments, 20000)
-    draw_complete_map(best_route)
+    best_route = simulated_annealing(departments, 9000)
     save_html_map(best_route)
+    draw_complete_map(best_route)
+   
   
 
 
