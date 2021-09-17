@@ -56,7 +56,7 @@ def simulated_annealing(route, iterations):
             draw(t_actual, temp, e_best)
 
         temp = (1 - cooling_index) * temp
-        print(f'Iteracion: {i}')
+        #print(f'Iteracion: {i}')
 
     plt.close()
     print("La ruta es de: " + str(round(get_energy(t_best), 4)) + "km")
