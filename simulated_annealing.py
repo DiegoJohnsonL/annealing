@@ -25,8 +25,7 @@ def draw(route, temp, distance):
     y_values = [route[len(route) - 1].latitude, route[0].latitude]
     plt.plot(x_values, y_values)
     red_patch = mpatches.Patch(color="red", label=f'Temperatura: {round(temp, 6)}')
-    blue_patch = mpatches.Patch(color="blue",label=f'Distancia: {round(distance, 6)}')
-    blue_patch = mpatches.Patch(color="blue",label=f'Distancia: {round(distance, 6)}')
+    blue_patch = mpatches.Patch(color="blue",label=f'Distancia: {round(distance, 6)} Km')
     plt.legend(handles=[red_patch,blue_patch])
     plt.pause(.00000000000000000001)
 
