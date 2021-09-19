@@ -1,7 +1,6 @@
-import time
 import folium
-import matplotlib.pyplot
 from matplotlib.animation import FuncAnimation
+import matplotlib.patches as mpatches
 
 from department import Department
 import pandas as pd
@@ -48,7 +47,7 @@ def save_html_map(route):
     peru_map.save("peru_map.html")
 
 
-def draw_complete_map(route):
+def draw_complete_map(route, temp, distance, i_best, cooling_index):
     url_data = "https://raw.githubusercontent.com/juaneladio/peru-geojson/master/peru_departamental_simple.geojson"
     region_geojson = gpd.read_file(url_data)
     c_map = ListedColormap(['white' for _ in range(25)], name='test')
@@ -65,14 +64,22 @@ def draw_complete_map(route):
     x_values = [route[len(route) - 1].longitude, route[0].longitude]
     y_values = [route[len(route) - 1].latitude, route[0].latitude]
     plt.plot(x_values, y_values)
+    red_patch = mpatches.Patch(color="red", label=f'Temperatura: {temp:.20f}')
+    blue_patch = mpatches.Patch(color="blue",label=f'Distancia: {round(distance, 6)} Km')
+    green_patch = mpatches.Patch(color="green",label=f'Iteracion: {i_best}')
+    teal_patch = mpatches.Patch(color="teal",label=f'Indice de enfriamiento: {cooling_index}')
+    plt.legend(handles=[red_patch,blue_patch, green_patch, teal_patch])
     plt.show()
 
 
-if __name__ == '__main__':
+def main():
     departments = get_departments_list()
-    best_route = simulated_annealing(departments, 9000)
+    best_route, temp, distance, i_best, cooling_index  = simulated_annealing(departments, 20000)
     save_html_map(best_route)
-    draw_complete_map(best_route)
+    draw_complete_map(best_route, temp, distance, i_best, cooling_index)
+
+if __name__ == '__main__':
+    main()
    
   
 

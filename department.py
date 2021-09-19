@@ -1,6 +1,6 @@
 import numpy as np
 
-
+#Distancia entre dos Geo Coordenadas
 def get_haversine_distance(latitude1, longitude1, latitude2, longitude2):
     r = 6371
     phi1 = np.radians(latitude1)
@@ -18,7 +18,7 @@ class Department:
         self.latitude = location[0]
         self.longitude = location[1]
         self.location = location
-
+    
     @staticmethod
     def get_distance_between_departments(department_one, department_two):
         result = get_haversine_distance(department_one.latitude, department_one.longitude,
